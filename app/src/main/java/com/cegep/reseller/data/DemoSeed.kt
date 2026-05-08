@@ -6,13 +6,12 @@ import com.cegep.reseller.data.entity.User
 object DemoSeed {
 
     private const val CURATOR_EMAIL = "curator@reseller.app"
-    private const val SAMPLE_SELLER_EMAIL = "seller@reseller.app"
 
     suspend fun runIfMissing(db: AppDatabase) {
         val userDao = db.userDao()
-        val listingDao = db.listingDao()
+        if (userDao.findByEmail(CURATOR_EMAIL) != null) return
 
-        val curatorId = userDao.findByEmail(CURATOR_EMAIL)?.id ?: userDao.insert(
+        val curatorId = userDao.insert(
             User(
                 username = "Curator",
                 email = CURATOR_EMAIL,
@@ -20,24 +19,11 @@ object DemoSeed {
             )
         )
 
-        val sampleSellerId = userDao.findByEmail(SAMPLE_SELLER_EMAIL)?.id ?: userDao.insert(
-            User(
-                username = "Sample Seller",
-                email = SAMPLE_SELLER_EMAIL,
-                passwordHash = PasswordHasher.hash("demo1234")
-            )
-        )
-
-        if (listingDao.countBySeller(curatorId) == 0) {
-            curatorListings(curatorId).forEach { listingDao.insert(it) }
-        }
-
-        if (listingDao.countBySeller(sampleSellerId) == 0) {
-            sampleSellerListings(sampleSellerId).forEach { listingDao.insert(it) }
-        }
+        val listingDao = db.listingDao()
+        seedListings(curatorId).forEach { listingDao.insert(it) }
     }
 
-    private fun curatorListings(sellerId: Long) = listOf(
+    private fun seedListings(sellerId: Long) = listOf(
         Listing(
             sellerId = sellerId,
             title = "Vintage Suede Bomber",
@@ -84,57 +70,6 @@ object DemoSeed {
             brand = "Adidas",
             priceCents = 9000,
             description = "White / green tabs, size 9 US. Clean uppers, soles fresh.",
-            imagePath = null
-        )
-    )
-
-    private fun sampleSellerListings(sellerId: Long) = listOf(
-        Listing(
-            sellerId = sellerId,
-            title = "Designer Knit Cardigan",
-            brand = "Jacquemus",
-            priceCents = 19500,
-            description = "Cream knit cardigan, relaxed fit. Very clean condition, size M.",
-            imagePath = null
-        ),
-        Listing(
-            sellerId = sellerId,
-            title = "Leather Chelsea Boots",
-            brand = "Saint Laurent",
-            priceCents = 42000,
-            description = "Black leather Chelsea boots, size 10. Worn a few times, no major marks.",
-            imagePath = null
-        ),
-        Listing(
-            sellerId = sellerId,
-            title = "Washed Denim Jacket",
-            brand = "A.P.C.",
-            priceCents = 16000,
-            description = "Light blue denim jacket with a straight fit. Size L.",
-            imagePath = null
-        ),
-        Listing(
-            sellerId = sellerId,
-            title = "Logo Canvas Tote",
-            brand = "Maison Kitsune",
-            priceCents = 7500,
-            description = "Canvas tote bag, natural color. Good everyday bag.",
-            imagePath = null
-        ),
-        Listing(
-            sellerId = sellerId,
-            title = "Pleated Wide-Leg Pants",
-            brand = "Issey Miyake",
-            priceCents = 31000,
-            description = "Black pleated pants, easy fit. Excellent condition.",
-            imagePath = null
-        ),
-        Listing(
-            sellerId = sellerId,
-            title = "Wool Overcoat",
-            brand = "Sandro",
-            priceCents = 27500,
-            description = "Charcoal wool overcoat, warm and structured. Size M.",
             imagePath = null
         )
     )
