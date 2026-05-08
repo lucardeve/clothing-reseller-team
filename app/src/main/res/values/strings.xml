@@ -15,10 +15,13 @@
     <string name="action_delete">Delete</string>
     <string name="action_edit">Edit</string>
     <string name="action_add_to_cart">Add to cart</string>
+    <string name="action_remove_from_cart">Remove from cart</string>
     <string name="action_checkout">Checkout</string>
     <string name="action_pay">Place order</string>
     <string name="action_pick_image">Choose photo</string>
     <string name="action_back">Back</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_remove">Remove</string>
 
     <string name="label_email">Email</string>
     <string name="label_username">Username</string>
@@ -32,6 +35,8 @@
     <string name="label_card_number">Card number</string>
     <string name="label_card_expiry">MM/YY</string>
     <string name="label_card_cvv">CVV</string>
+    <string name="label_total">Total</string>
+    <string name="label_orders">Orders</string>
 
     <string name="title_login">Sign in</string>
     <string name="title_login_subtitle">Welcome back to Reseller</string>
@@ -80,4 +85,8 @@
     <string name="confirm_order_placed">Order placed. Thank you!</string>
     <string name="confirm_listing_deleted">Listing deleted</string>
     <string name="confirm_listing_saved">Listing saved</string>
+    <string name="cd_listing_card">Listing card</string>
+    <string name="cd_clear_search">Clear search</string>
+    <string name="cd_delete_listing">Delete listing</string>
+    <string name="cd_remove_cart_item">Remove cart item</string>
 </resources>

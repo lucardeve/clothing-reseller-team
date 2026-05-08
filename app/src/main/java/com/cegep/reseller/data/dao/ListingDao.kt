@@ -34,6 +34,9 @@ interface ListingDao {
     @Query("SELECT * FROM listings WHERE sellerId = :sellerId ORDER BY createdAt DESC")
     fun observeBySeller(sellerId: Long): Flow<List<Listing>>
 
+    @Query("SELECT COUNT(*) FROM listings WHERE sellerId = :sellerId")
+    suspend fun countBySeller(sellerId: Long): Int
+
     @Query("""
         SELECT * FROM listings
         WHERE status = :status

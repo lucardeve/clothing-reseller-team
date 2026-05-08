@@ -15,6 +15,7 @@ object Routes {
 
     const val LISTING_EDIT = "listing/{listingId}/edit"
     fun listingEdit(id: Long) = "listing/$id/edit"
+    const val LISTING_CREATE = "listing/new"
 
     const val MY_LISTINGS = "my-listings"
     const val ORDERS = "orders"
